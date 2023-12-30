@@ -1,6 +1,4 @@
-local module = {}
-
-module.raw = [[{
+{
     "Classes": [{
             "Members": [{
                     "Category": "Behavior",
@@ -109217,6 +109215,4 @@ module.raw = [[{
         }
     ],
     "Version": 1
-}]]
-
-return module
+}
