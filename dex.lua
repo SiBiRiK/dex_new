@@ -1,4 +1,3 @@
-local module = {}
 local protect_gui = function(gui : ScreenGui)return gui:AddTag('protected by septium')end
 local setclipboard = function(text)return print(text)end
 local CoreGui = Instance.new('Folder',game:GetService('Players').LocalPlayer.PlayerGui)
@@ -13,7 +12,7 @@ end
 local function readfile(name)
 	file_lib:readfile(name)
 end
-CoreGui.Name = 'CoreGui[SEPTIUM]'
+CoreGui.Name = 'CoreGui'
 
 --[[
 	New Dex
@@ -11140,5 +11139,3 @@ end)()
 
 -- Start
 Main.Init()
-
-return module
