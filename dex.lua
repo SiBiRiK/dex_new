@@ -10435,7 +10435,7 @@ Main = (function()
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawAPI = rawAPI or require(workspace:WaitForChild('SEPTIUM'):FindFirstChild('api_json')).raw
+			rawAPI = rawAPI or require(loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/json.json")()).raw
 		else
 			if script:FindFirstChild("API") then
 				rawAPI = require(script.API)
@@ -10583,7 +10583,7 @@ Main = (function()
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawXML = rawXML or require(workspace:WaitForChild('SEPTIUM'):FindFirstChild('api_xml')).raw
+			rawXML = rawXML or require(loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/xml.xml")()).raw
 		else
 			if script:FindFirstChild("RMD") then
 				rawXML = require(script.RMD)
