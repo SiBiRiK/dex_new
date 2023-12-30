@@ -1,5 +1,4 @@
-local module = {}
-module.raw = [[<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
   <Item class="ReflectionMetadataClasses">
     <Properties></Properties>
@@ -9739,5 +9738,4 @@ module.raw = [[<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
       </Item>
     </Item>
   </Item>
-</roblox>]]
-return module
+</roblox>
