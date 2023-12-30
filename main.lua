@@ -3318,13 +3318,7 @@ local function main()
 	end
 
 	Lib.FetchCustomAsset = function(url,filepath)
-		if not env.writefile then return end
 
-		local s,data = pcall(game.HttpGet,game,url)
-		if not s then return end
-
-		env.writefile(filepath,data)
-		return Lib.LoadCustomAsset(filepath)
 	end
 
 	-- Classes
@@ -10637,13 +10631,7 @@ local function main()
 		save.TextColor3 = Color3.new(1,1,1)
 
 		save.MouseButton1Click:Connect(function()
-			local source = codeFrame:GetText()
-			local filename = "Place_"..game.PlaceId.."_Script_"..os.time()..".txt"
 
-			writefile(filename,source)
-			if movefileas then -- TODO: USE ENV
-				movefileas(filename,".txt")
-			end
 		end)
 	end
 
@@ -10869,19 +10857,9 @@ Main = (function()
 				
 				-- Check if local copy exists with matching hashs
 				local hashfunc = (syn and syn.crypt.hash) or function() return "" end
-				local filePath = "dex/ModuleCache/"..name..".lua"
-				local s,moduleStr = pcall(env.readfile,filePath)
-				
-				if s and hashfunc(moduleStr) == hashs[name] then
-					control = loadstring(moduleStr)()
-				else
-					-- Download and cache
-					local s,moduleStr = pcall(game.HttpGet, game, "https://api.github.com/repos/"..Main.GitRepoName.."/Modules/"..name..".lua")
-					if not s then Main.Error("Failed to get external module data of "..name) end
-					
-					env.writefile(filePath,moduleStr)
-					control = loadstring(moduleStr)()
-				end
+				-- Download and cache
+				local s,moduleStr = pcall(game.HttpGet, game, "https://api.github.com/repos/"..Main.GitRepoName.."/Modules/"..name..".lua")
+				control = loadstring(moduleStr)()
 			end
 			
 			Main.AppControls[name] = control
@@ -10940,33 +10918,33 @@ Main = (function()
 		end})
 		
 		-- file
-		env.readfile = readfile
-		env.writefile = writefile
-		env.appendfile = appendfile
-		env.makefolder = makefolder
-		env.listfiles = listfiles
-		env.loadfile = loadfile
-		env.saveinstance = saveinstance
+		env.readfile = function(...)return ... end
+		env.writefile = function(...)return ... end
+		env.appendfile = function(...)return ... end
+		env.makefolder = function(...)return ... end
+		env.listfiles = function(...)return ... end
+		env.loadfile = function(...)return ... end
+		env.saveinstance = function(...)return ... end
 		
 		-- debug
-		env.getupvalues = debug.getupvalues or getupvals
-		env.getconstants = debug.getconstants or getconsts
-		env.islclosure = islclosure or is_l_closure
-		env.checkcaller = checkcaller
-		env.getreg = getreg
-		env.getgc = getgc
+		env.getupvalues = debug.getupvalues
+		env.getconstants = debug.getconstants
+		env.islclosure = function(...)return ... end
+		env.checkcaller = function(...)return ... end
+		env.getreg = function(...)return ... end
+		env.getgc = function(...)return ... end
 		
 		-- other
-		env.setfflag = setfflag
-		env.decompile = decompile
-		env.protectgui = protect_gui or (syn and syn.protect_gui)
-		env.gethui = gethui
+		env.setfflag = function(...)return ... end
+		env.decompile = function(...)return ... end
+		env.protectgui = function(...)return ... end
+		env.gethui = function(...)return ... end
 		env.setclipboard = setclipboard
 		env.getnilinstances = getnilinstances or get_nil_instances
 		env.getloadedmodules = getloadedmodules
 		
 		if identifyexecutor then
-			Main.Executor = identifyexecutor()
+			Main.Executor = 'septium@luau'
 		end
 		
 		Main.GuiHolder = Main.Elevated and service.CoreGui or plr:FindFirstChildOfClass("PlayerGui")
@@ -11025,19 +11003,7 @@ Main = (function()
 	]]
 	
 	Main.LoadSettings = function()
-		local s,data = pcall(env.readfile or error,"DexSettings.json")
-		if s and data and data ~= "" then
-			local s,decoded = service.HttpService:JSONDecode(data)
-			if s and decoded then
-				for i,v in next,decoded do
-					
-				end
-			else
-				-- TODO: Notification
-			end
-		else
-			Main.ResetSettings()
-		end
+
 	end
 	
 	Main.ResetSettings = function()
@@ -11061,14 +11027,14 @@ Main = (function()
 		local api,rawAPI
 		if Main.Elevated then
 			if Main.LocalDepsUpToDate() then
-				local localAPI = Lib.ReadFile("dex/rbx_api.dat")
+				local localAPI = nil
 				if localAPI then 
 					rawAPI = localAPI
 				else
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawAPI = rawAPI or game:HttpGet("http://setup.roblox.com/"..Main.RobloxVersion.."-API-Dump.json")
+			rawAPI = rawAPI or game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/json.json")
 		else
 			if script:FindFirstChild("API") then
 				rawAPI = require(script.API)
@@ -11209,14 +11175,14 @@ Main = (function()
 		local rawXML
 		if Main.Elevated then
 			if Main.LocalDepsUpToDate() then
-				local localRMD = Lib.ReadFile("dex/rbx_rmd.dat")
+				local localRMD = nil
 				if localRMD then 
 					rawXML = localRMD
 				else
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawXML = rawXML or game:HttpGet("https://raw.githubusercontent.com/CloneTrooper1019/Roblox-Client-Tracker/roblox/ReflectionMetadata.xml")
+			rawXML = rawXML or game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/xml.xml")
 		else
 			if script:FindFirstChild("RMD") then
 				rawXML = require(script.RMD)
@@ -11654,15 +11620,7 @@ Main = (function()
 	end
 	
 	Main.SetupFilesystem = function()
-		if not env.writefile or not env.makefolder then return end
-		
-		local writefile,makefolder = env.writefile,env.makefolder
-		
-		makefolder("dex")
-		makefolder("dex/assets")
-		makefolder("dex/saved")
-		makefolder("dex/plugins")
-		makefolder("dex/ModuleCache")
+
 	end
 	
 	Main.LocalDepsUpToDate = function()
@@ -11701,7 +11659,7 @@ Main = (function()
 		-- Fetch version if needed
 		intro.SetProgress("Fetching Roblox Version",0.2)
 		if Main.Elevated then
-			local fileVer = Lib.ReadFile("dex/deps_version.dat")
+			local fileVer = nil
 			Main.ClientVersion = Version()
 			if fileVer then
 				Main.DepsVersionData = string.split(fileVer,"\n")
@@ -11709,7 +11667,7 @@ Main = (function()
 					Main.RobloxVersion = Main.DepsVersionData[2]
 				end
 			end
-			Main.RobloxVersion = Main.RobloxVersion or game:HttpGet("http://setup.roblox.com/versionQTStudio")
+			Main.RobloxVersion = 'version-d0e8cfcd943d4ae2'
 		end
 		
 		-- Fetch external deps
@@ -11722,9 +11680,7 @@ Main = (function()
 		
 		-- Save external deps locally if needed
 		if Main.Elevated and env.writefile and not Main.LocalDepsUpToDate() then
-			env.writefile("dex/deps_version.dat",Main.ClientVersion.."\n"..Main.RobloxVersion)
-			env.writefile("dex/rbx_api.dat",Main.RawAPI)
-			env.writefile("dex/rbx_rmd.dat",Main.RawRMD)
+
 		end
 		
 		-- Load other modules
