@@ -5216,8 +5216,9 @@ local function main()
 
 		funcs.ApplyTheme = function(self,data)
 			local theme = self.Theme
-			theme.ContentColor = data.ContentColor or Settings.Theme.Menu
-			theme.OutlineColor = data.OutlineColor or Settings.Theme.Menu
+	                local rgb = Color3.fromRGB
+			theme.ContentColor = data.ContentColor or rgb(32,32,32)
+			theme.OutlineColor = data.OutlineColor or rgb(32,32,32)
 			theme.DividerColor = data.DividerColor or Settings.Theme.Outline2
 			theme.TextColor = data.TextColor or Settings.Theme.Text
 			theme.HighlightColor = data.HighlightColor or Settings.Theme.Main1
