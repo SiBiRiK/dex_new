@@ -2,7 +2,7 @@ local protect_gui = function(gui : ScreenGui)return gui:AddTag('protected by sep
 local setclipboard = function(text)return print(text)end
 local CoreGui = Instance.new('Folder',game:GetService('Players').LocalPlayer.PlayerGui)
 local decompile = function(...)return [[warn('Decompilation is not yet supported.')]] end
-local file_lib = require(workspace:WaitForChild("SEPTIUM"):FindFirstChild('file_lib'))
+local file_lib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiBiRiK/dex_new/main/file_lib.lua'))()
 local function makefolder(name,parent)
 	file_lib:makefolder(name,parent)
 end
@@ -10435,7 +10435,7 @@ Main = (function()
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawAPI = rawAPI or require(loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/json.json")()).raw
+			rawAPI = rawAPI or loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/json.json")().raw
 		else
 			if script:FindFirstChild("API") then
 				rawAPI = require(script.API)
@@ -10583,7 +10583,7 @@ Main = (function()
 					Main.DepsVersionData[1] = ""
 				end
 			end
-			rawXML = rawXML or require(loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/xml.xml")()).raw
+			rawXML = rawXML or loadstring(game:HttpGet("https://raw.githubusercontent.com/SiBiRiK/dex_new/main/xml.xml")().raw
 		else
 			if script:FindFirstChild("RMD") then
 				rawXML = require(script.RMD)
