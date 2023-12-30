@@ -5,6 +5,53 @@ modfiers.LocalPlayerColor = Color3.new(0.8, 1, 0.8)
 
 local rgb = Color3.fromRGB
 
+local Settings = {}
+Settings.Theme = {
+			_Recurse = true,
+			Main1 = rgb(52,52,52),
+			Main2 = rgb(45,45,45),
+			Outline1 = rgb(33,33,33), -- Mainly frames
+			Outline2 = rgb(55,55,55), -- Mainly button
+			Outline3 = rgb(30,30,30), -- Mainly textbox
+			TextBox = rgb(38,38,38),
+			Menu = rgb(32,32,32),
+			ListSelection = rgb(11,90,175),
+			Button = rgb(60,60,60),
+			ButtonHover = rgb(68,68,68),
+			ButtonPress = rgb(40,40,40),
+			Highlight = rgb(75,75,75),
+			Text = rgb(255,255,255),
+			PlaceholderText = rgb(100,100,100),
+			Important = rgb(255,0,0),
+			ExplorerIconMap = "",
+			MiscIconMap = "",
+			Syntax = {
+				Text = rgb(204,204,204),
+				Background = rgb(36,36,36),
+				Selection = rgb(255,255,255),
+				SelectionBack = rgb(11,90,175),
+				Operator = rgb(204,204,204),
+				Number = rgb(255,198,0),
+				String = rgb(173,241,149),
+				Comment = rgb(102,102,102),
+				Keyword = rgb(248,109,124),
+				Error = rgb(255,0,0),
+				FindBackground = rgb(141,118,0),
+				MatchingWord = rgb(85,85,85),
+				BuiltIn = rgb(132,214,247),
+				CurrentLine = rgb(45,50,65),
+				LocalMethod = rgb(253,251,172),
+				LocalProperty = rgb(97,161,241),
+				Nil = rgb(255,198,0),
+				Bool = rgb(255,198,0),
+				Function = rgb(248,109,124),
+				Local = rgb(248,109,124),
+				Self = rgb(248,109,124),
+				FunctionName = rgb(253,251,172),
+				Bracket = rgb(204,204,204)
+			},
+		}
+
 iconImages = {
     Mono = "rbxassetid://13154391952",
     Green = "rbxassetid://13155780418",
@@ -8463,7 +8510,7 @@ local function main()
 
 			local obj = initObj(props,mt)
 			obj.Gui = b
-			obj.Anim = Lib.ButtonAnim(b,{Mode = 2, StartColor = Settings.Theme.Button, HoverColor = Settings.Theme.ButtonHover, PressColor = Settings.Theme.ButtonPress, OutlineColor = Settings.Theme.Outline2})
+			obj.Anim = Lib.ButtonAnim(b,{Mode = 2, StartColor = Settings.Theme.Button, HoverColor = Settings.Theme.ButtonHover, PressColor = Settings.Theme.ButtonPress, OutlineColor = rgb(55,55,55)})
 
 			b.MouseButton1Click:Connect(function() obj:Trigger("Click",1) end)
 			b.MouseButton1Down:Connect(function() obj:Trigger("Down",1) end)
@@ -10792,7 +10839,6 @@ DefaultSettings = (function()
 end)()
 
 -- Vars
-local Settings = {}
 local Apps = {}
 local env = {}
 local service = setmetatable({},{__index = function(self,name)
@@ -10886,12 +10932,6 @@ Main = (function()
 				end
 				
 				if not control then Main.Error("Missing Embedded Module: "..name) end
-			elseif _G.DebugLoadModel then -- Load Debug Model File
-				local model = Main.DebugModel
-				if not model then model = game:GetObjects(getsynasset("AfterModules.rbxm"))[1] end
-				
-				control = loadstring(model.Modules[name].Source)()
-				print("Locally Loaded Module",name,control)
 			else
 				-- Get hash data
 				local hashs = Main.ModuleHashData
