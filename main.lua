@@ -3,6 +3,8 @@ modfiers.SearchOnType = false
 modfiers.CustomColor = Color3.fromRGB(255, 255, 255)
 modfiers.LocalPlayerColor = Color3.new(0.8, 1, 0.8)
 
+local rgb = Color3.fromRGB
+
 iconImages = {
     Mono = "rbxassetid://13154391952",
     Green = "rbxassetid://13155780418",
@@ -5216,12 +5218,12 @@ local function main()
 
 		funcs.ApplyTheme = function(self,data)
 			local theme = self.Theme
-	                local rgb = Color3.fromRGB
+	        local rgb = Color3.fromRGB
 			theme.ContentColor = data.ContentColor or rgb(32,32,32)
 			theme.OutlineColor = data.OutlineColor or rgb(32,32,32)
-			theme.DividerColor = data.DividerColor or Settings.Theme.Outline2
-			theme.TextColor = data.TextColor or Settings.Theme.Text
-			theme.HighlightColor = data.HighlightColor or Settings.Theme.Main1
+			theme.DividerColor = data.DividerColor or rgb(55,55,55)
+			theme.TextColor = data.TextColor or rgb(255,255,255)
+			theme.HighlightColor = data.HighlightColor or rgb(55,55,55)
 
 			self.GuiElems.Main.BackgroundColor3 = theme.OutlineColor
 			self.GuiElems.Main.Container.BackgroundColor3 = theme.ContentColor
@@ -6476,7 +6478,31 @@ local function main()
 		end
 
 		funcs.ApplyTheme = function(self)
-			local colors = Settings.Theme.Syntax
+			local colors = {
+				Text = rgb(204,204,204),
+				Background = rgb(36,36,36),
+				Selection = rgb(255,255,255),
+				SelectionBack = rgb(11,90,175),
+				Operator = rgb(204,204,204),
+				Number = rgb(255,198,0),
+				String = rgb(173,241,149),
+				Comment = rgb(102,102,102),
+				Keyword = rgb(248,109,124),
+				Error = rgb(255,0,0),
+				FindBackground = rgb(141,118,0),
+				MatchingWord = rgb(85,85,85),
+				BuiltIn = rgb(132,214,247),
+				CurrentLine = rgb(45,50,65),
+				LocalMethod = rgb(253,251,172),
+				LocalProperty = rgb(97,161,241),
+				Nil = rgb(255,198,0),
+				Bool = rgb(255,198,0),
+				Function = rgb(248,109,124),
+				Local = rgb(248,109,124),
+				Self = rgb(248,109,124),
+				FunctionName = rgb(253,251,172),
+				Bracket = rgb(204,204,204)
+			}
 			self.Colors = colors
 			self.Frame.LineNumbers.TextColor3 = colors.Text
 			self.Frame.BackgroundColor3 = colors.Background
@@ -6494,7 +6520,31 @@ local function main()
 				FontSize = 15,
 				ViewX = 0,
 				ViewY = 0,
-				Colors = Settings.Theme.Syntax,
+				Colors = {
+				Text = rgb(204,204,204),
+				Background = rgb(36,36,36),
+				Selection = rgb(255,255,255),
+				SelectionBack = rgb(11,90,175),
+				Operator = rgb(204,204,204),
+				Number = rgb(255,198,0),
+				String = rgb(173,241,149),
+				Comment = rgb(102,102,102),
+				Keyword = rgb(248,109,124),
+				Error = rgb(255,0,0),
+				FindBackground = rgb(141,118,0),
+				MatchingWord = rgb(85,85,85),
+				BuiltIn = rgb(132,214,247),
+				CurrentLine = rgb(45,50,65),
+				LocalMethod = rgb(253,251,172),
+				LocalProperty = rgb(97,161,241),
+				Nil = rgb(255,198,0),
+				Bool = rgb(255,198,0),
+				Function = rgb(248,109,124),
+				Local = rgb(248,109,124),
+				Self = rgb(248,109,124),
+				FunctionName = rgb(253,251,172),
+				Bracket = rgb(204,204,204)
+			},
 				ColoredLines = {},
 				Lines = {""},
 				LineFrames = {},
@@ -8310,10 +8360,10 @@ local function main()
 		local function new()
 			local textBox = Instance.new("TextBox")
 			textBox.Size = UDim2.new(0,100,0,20)
-			textBox.BackgroundColor3 = Settings.Theme.TextBox
-			textBox.BorderColor3 = Settings.Theme.Outline3
+			textBox.BackgroundColor3 = rgb(38,38,38)
+			textBox.BorderColor3 = rgb(30,30,30)
 			textBox.ClearTextOnFocus = false
-			textBox.TextColor3 = Settings.Theme.Text
+			textBox.TextColor3 = rgb(255,255,255)
 			textBox.Font = Enum.Font.SourceSans
 			textBox.TextSize = 14
 			textBox.Text = ""
@@ -8332,7 +8382,7 @@ local function main()
 			local label = Instance.new("TextLabel")
 			label.BackgroundTransparency = 1
 			label.TextXAlignment = Enum.TextXAlignment.Left
-			label.TextColor3 = Settings.Theme.Text
+			label.TextColor3 = rgb(255,255,255)
 			label.TextTransparency = 0.1
 			label.Size = UDim2.new(0,100,0,20)
 			label.Font = Enum.Font.SourceSans
@@ -8354,8 +8404,8 @@ local function main()
 
 		local function new()
 			local fr = Instance.new("Frame")
-			fr.BackgroundColor3 = Settings.Theme.Main1
-			fr.BorderColor3 = Settings.Theme.Outline1
+			fr.BackgroundColor3 = rgb(52,52,52)
+			fr.BorderColor3 = rgb(33,33,33)
 			fr.Size = UDim2.new(0,50,0,50)
 
 			local obj = setmetatable({
@@ -8403,13 +8453,13 @@ local function main()
 		local function new()
 			local b = Instance.new("TextButton")
 			b.AutoButtonColor = false
-			b.TextColor3 = Settings.Theme.Text
+			b.TextColor3 = rgb(255,255,255)
 			b.TextTransparency = 0.1
 			b.Size = UDim2.new(0,100,0,20)
 			b.Font = Enum.Font.SourceSans
 			b.TextSize = 14
-			b.BackgroundColor3 = Settings.Theme.Button
-			b.BorderColor3 = Settings.Theme.Outline2
+			b.BackgroundColor3 = rgb(60,60,60)
+			b.BorderColor3 = rgb(55,55,55)
 
 			local obj = initObj(props,mt)
 			obj.Gui = b
