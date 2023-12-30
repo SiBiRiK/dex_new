@@ -1,7 +1,7 @@
-modfiers = modfiers or {}
-for i, v in next, modfiers do
-    getfenv(1)[i] = v
-end
+modfiers = {}
+modfiers.SearchOnType = false
+modfiers.CustomColor = Color3.fromRGB(255, 255, 255)
+modfiers.LocalPlayerColor = Color3.new(0.8, 1, 0.8)
 
 iconImages = {
     Mono = "rbxassetid://13154391952",
@@ -13,9 +13,7 @@ iconImages = {
     Colourful = "rbxassetid://13155827116",
 }
 
-if not iconImages[currentTheme] then
-    currentTheme = "Mono"
-end
+currentTheme = "Mono"
 
 iconData = {
 	"Accessory",
