@@ -336,6 +336,7 @@ local script = G2L["a"];
 	end
 	
 	function newLine(message, mtype)
+		if string.sub(message,1,20) == 'Failed to load sound' then return end
 		if FILTERS[tostring(mtype):sub(25):lower()].Text == 'X' then return end
 		wait()
 		local new = Instance.new('TextLabel')
