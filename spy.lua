@@ -2515,7 +2515,7 @@ function LoadExplorer(obj)
 	Check(game,1)
 	local last
 	for i,v in pairs(InstancesTable) do
-		local temp = Supplies.ExplorerTemplate:Clone()
+		local temp = ExplorerTemplate:Clone()
 		temp.Name = v
 		temp.InstanceName.Text = v
 		LoadIcon(((ClassTable[i] and ClassTable[i].ClassName) or "Folder"),temp.Icon)
@@ -2665,7 +2665,7 @@ end)
 
 function LoadSpy()
 	Remotes:ClearAllChildren()
-	Supplies.RemoteGrid:Clone().Parent = Remotes
+	RemoteGrid:Clone().Parent = Remotes
 	local function recur(obj)
 		for i,v in pairs(obj:GetChildren()) do
 			local suc, err = pcall(function()
