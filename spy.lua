@@ -2050,6 +2050,7 @@ function i2p(i,customgen)
         return "game"
     end
 end
+local generation = {}
 local configs = newproxy(true)
 local typeofv2sfunctions = {
     number = function(v)
@@ -2069,7 +2070,7 @@ local typeofv2sfunctions = {
         return t2s(v, l, p, n, vtv, i, pt, path, tables, tI)
     end,
     Instance = function(v)
-        local DebugId = OldDebugId(v)
+        local DebugId = game.GetDebugId(v)
         return i2p(v,generation[DebugId])
     end,
     userdata = function(v) -- The server doesnt recive this
