@@ -2082,7 +2082,92 @@ local typeofv2sfunctions = {
         return "newproxy(true)"
     end
 }
+local ufunctions
+ufunctions = {
+    TweenInfo = function(u)
+        return `TweenInfo.new({u.Time}, {u.EasingStyle}, {u.EasingDirection}, {u.RepeatCount}, {u.Reverses}, {u.DelayTime})`
+    end,
+    Ray = function(u)
+        local Vector3tostring = ufunctions["Vector3"]
 
+        return `Ray.new({Vector3tostring(u.Origin)}, {Vector3tostring(u.Direction)})`
+    end,
+    BrickColor = function(u)
+        return `BrickColor.new({u.Number})`
+    end,
+    NumberRange = function(u)
+        return `NumberRange.new({u.Min}, {u.Max})`
+    end,
+    Region3 = function(u)
+        local center = u.CFrame.Position
+        local centersize = u.Size/2
+        local Vector3tostring = ufunctions["Vector3"]
+
+        return `Region3.new({Vector3tostring(center-centersize)}, {Vector3tostring(center+centersize)})`
+    end,
+    Faces = function(u)
+        local faces = {}
+        if u.Top then
+            table.insert(faces, "Top")
+        end
+        if u.Bottom then
+            table.insert(faces, "Enum.NormalId.Bottom")
+        end
+        if u.Left then
+            table.insert(faces, "Enum.NormalId.Left")
+        end
+        if u.Right then
+            table.insert(faces, "Enum.NormalId.Right")
+        end
+        if u.Back then
+            table.insert(faces, "Enum.NormalId.Back")
+        end
+        if u.Front then
+            table.insert(faces, "Enum.NormalId.Front")
+        end
+        return `Faces.new({table.concat(faces, ", ")})`
+    end,
+    EnumItem = function(u)
+        return tostring(u)
+    end,
+    Enums = function(u)
+        return "Enum"
+    end,
+    Enum = function(u)
+        return `Enum.{u}`
+    end,
+    Vector3 = function(u)
+        return CustomGeneration.Vector3[u] or `Vector3.new({u})`
+    end,
+    Vector2 = function(u)
+        return CustomGeneration.Vector2[u] or `Vector2.new({u})`
+    end,
+    CFrame = function(u)
+        return CustomGeneration.CFrame[u] or `CFrame.new({table.concat({u:GetComponents()},", ")})`
+    end,
+    PathWaypoint = function(u)
+        return `PathWaypoint.new({ufunctions["Vector3"](u.Position)}, {u.Action}, "{u.Label}")`
+    end,
+    UDim = function(u)
+        return `UDim.new({u})`
+    end,
+    UDim2 = function(u)
+        return `UDim2.new({u})`
+    end,
+    Rect = function(u)
+        local Vector2tostring = ufunctions["Vector2"]
+        return `Rect.new({Vector2tostring(u.Min)}, {Vector2tostring(u.Max)})`
+    end,
+    Color3 = function(u)
+        return `Color3.new({u.R}, {u.G}, {u.B})`
+    end,
+    RBXScriptSignal = function(u) -- The server doesnt recive this
+        return "RBXScriptSignal --[[RBXScriptSignal's are not supported]]"
+    end,
+    RBXScriptConnection = function(u) -- The server doesnt recive this
+        return "RBXScriptConnection --[[RBXScriptConnection's are not supported]]"
+    end,
+}
 local typev2sfunctions = {
     userdata = function(v,vtypeof)
         if ufunctions[vtypeof] then
