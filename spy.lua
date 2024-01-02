@@ -2318,7 +2318,7 @@ end)
 local ViewDB = false
 
 function AddToOutput(obj,args)
-	local temp = Supplies.RemoteOutputTemplate:Clone()
+	local temp = RemoteOutputTemplate:Clone()
 	temp.RemoteName.Text = obj.Name.." | Args: "..args
 	LoadIcon(obj.ClassName,temp.Icon)
 	temp.Position = UDim2.new(0,5,0,#Output.OutputWindow:GetChildren()*20)
