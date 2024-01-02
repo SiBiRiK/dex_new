@@ -2579,7 +2579,7 @@ end
 local AllStuff = {}
 
 function MakeRemote(obj)
-	local temp = Supplies.RemoteTemplate:Clone()
+	local temp = RemoteTemplate:Clone()
 	temp.RemoteName.Text = obj.Name
 	LoadIcon(obj.ClassName,temp.Icon)
 	temp.Parent = Remotes
