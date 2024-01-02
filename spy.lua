@@ -2698,8 +2698,6 @@ function CreateListener()
 			end)
 			v.DescendantRemoving:Connect(function(obj)
 				if RemoteIgnores[obj.ClassName] and not Ignores[obj.Name] then
-					RemotesToSpy[obj]:Destroy()
-					RemotesToSpy[obj] = nil
 					SpyingRemotes[obj] = nil
 				end
 			end)
