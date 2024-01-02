@@ -2088,7 +2088,7 @@ ufunctions = {
         return `TweenInfo.new({u.Time}, {u.EasingStyle}, {u.EasingDirection}, {u.RepeatCount}, {u.Reverses}, {u.DelayTime})`
     end,
     Ray = function(u)
-        local Vector3tostring = ufunctions["Vector3"]
+        local Vector3tostring = Vector3.new
 
         return `Ray.new({Vector3tostring(u.Origin)}, {Vector3tostring(u.Direction)})`
     end,
